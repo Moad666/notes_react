@@ -10,7 +10,10 @@ function Login() {
   const navigate = useNavigate();
 
     const goToSignupPage = () => {
-        navigate("/signup")
+        navigate("/signup");
+    }
+    const goToForgotPassword = () => {
+      navigate("/forgotPassword");
     }
 
   const login = async (e) => {
@@ -121,8 +124,8 @@ function Login() {
                   </button>
                 <div className="text-center">
                   <a
-                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800 mt-4"
-                    href="#"
+                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800 mt-4 cursor-pointer"
+                    onClick={goToForgotPassword}
                   >
                     Forgot Password?
                   </a>
