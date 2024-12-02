@@ -3,18 +3,17 @@ import axios from "axios";
 import logo from "../images/logo.png";
 import { useNavigate } from "react-router-dom";
 
-
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-    const goToSignupPage = () => {
-        navigate("/signup");
-    }
-    const goToForgotPassword = () => {
-      navigate("/forgotPassword");
-    }
+  const goToSignupPage = () => {
+    navigate("/signup");
+  };
+  const goToForgotPassword = () => {
+    navigate("/forgotPassword");
+  };
 
   const login = async (e) => {
     e.preventDefault();
@@ -30,9 +29,14 @@ function Login() {
       console.log("Success !");
       console.log("username : ", response.data.username);
       console.log("token : ", response.data.jwtToken);
+      navigate("/profile");
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const handleGitHubLogin = () => {
+    window.location.href = "http://127.0.0.1:8080/oauth2/authorization/github";
   };
 
   return (
@@ -48,15 +52,17 @@ function Login() {
               style={{
                 backgroundImage:
                   "url('https://img.freepik.com/vecteurs-libre/collection-papier-dechire_1232-4609.jpg?t=st=1729810894~exp=1729814494~hmac=386ca97348cb769f21f1995e9faeeb3e4253a178b28f48fd30f93bb858cf77c6&w=740')",
-                backgroundPosition: '-100px'
-                }}
+                backgroundPosition: "-100px",
+              }}
             ></div>
             {/* Right Column - Form */}
             <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
               <div className="flex justify-center">
                 <img src={logo} width={300} height={300} alt="Logo" />
               </div>
-              <h3 className="pt-4 text-2xl text-center font-myanmar">Welcome Back!</h3>
+              <h3 className="pt-4 text-2xl text-center font-myanmar">
+                Welcome Back!
+              </h3>
               <form
                 onSubmit={login}
                 className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
@@ -115,13 +121,12 @@ function Login() {
                 </div>
                 <hr className="mb-6 border-t" />
                 <button
-                    className="w-full px-4 py-2 font-bold text-white bg-blue-700 rounded-full hover:bg-blue-500 focus:outline-none focus:shadow-outline"
-                    type="button"
-                    onClick={goToSignupPage}
-
-                  >
-                    Create Account
-                  </button>
+                  className="w-full px-4 py-2 font-bold text-white bg-blue-700 rounded-full hover:bg-blue-500 focus:outline-none focus:shadow-outline"
+                  type="button"
+                  onClick={goToSignupPage}
+                >
+                  Create Account
+                </button>
                 <div className="text-center">
                   <a
                     className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800 mt-4 cursor-pointer"
@@ -131,6 +136,13 @@ function Login() {
                   </a>
                 </div>
               </form>
+              <button
+                className="w-full px-4 py-2 font-bold text-white bg-gray-700 rounded-full hover:bg-gray-900 focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={handleGitHubLogin}
+              >
+                Login with GitHub
+              </button>
             </div>
           </div>
         </div>

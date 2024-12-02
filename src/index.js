@@ -9,6 +9,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import OAuth2RedirectHandler from './pages/OAuth2RedirectHandler';
+import Profile from './pages/Profile';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,15 @@ const router = createBrowserRouter([
     path: "/reset-password",
     element: <ResetPassword />,
   },
+  {
+    path: "/oauth2/redirect",
+    element: <OAuth2RedirectHandler />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+
 
 
 ]);
