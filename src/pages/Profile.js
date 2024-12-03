@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+
 
 function Profile() {
   //const { currentUser, token } = useContext();
@@ -8,8 +11,10 @@ function Profile() {
   const [code, setCode] = useState("");
   const [step, setStep] = useState(1);
   const[loginSession, setLoginSession] = useState(null);
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetch2FAStatus = async () => {
       try {
@@ -30,21 +35,24 @@ function Profile() {
   }, [token]);
 
   const enable2FA = async () => {
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8080/api/auth/public/enable-2fa",{}, {
-            
-            headers: {
-                Authorization: `Bearer ${token}`,
-              }
+        "http://127.0.0.1:8080/api/auth/public/enable-2fa",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       setQrCodeUrl(response.data);
       setStep(2);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error("Error enabling 2FA:", error.response?.data || error.message);
     }
   };
+  
 
   const disable2FA = async () => {
     try {
@@ -86,6 +94,11 @@ function Profile() {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
+
   return (
     <div className="mt-10 text-center">
       {/* Button dynamically changes color and label */}
@@ -119,6 +132,14 @@ function Profile() {
           </button>
         </div>
       )}
+      <div className="mt-10">
+        <button className="mt-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+        
+        onClick={logout}>
+            logout
+        </button>
+
+      </div>
     </div>
   );
 }

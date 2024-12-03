@@ -11,6 +11,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import OAuth2RedirectHandler from './pages/OAuth2RedirectHandler';
 import Profile from './pages/Profile';
+import PrivateRoute from './pages/PrivateRoute';
+
+
 
 const router = createBrowserRouter([
   {
@@ -30,16 +33,13 @@ const router = createBrowserRouter([
     element: <ResetPassword />,
   },
   {
-    path: "/oauth2/redirect",
-    element: <OAuth2RedirectHandler />,
-  },
-  {
     path: "/profile",
-    element: <Profile />,
+    element: (
+      <PrivateRoute>
+        <Profile />
+      </PrivateRoute>
+    ),
   },
-
-
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
